@@ -5,6 +5,13 @@ Portable, project-agnostic working style for coding agents. Drop this into a rep
 `AGENTS.local.md`. These mirror the per-turn prompt stamps in `rules/prompt-stamps/`
 but in longer form.
 
+## Operating
+
+- **Don't ask permission to read — just read it.** Only pause for confirmation on writes
+  or anything hard to reverse or outward-facing.
+- Reading a file with a line limit/offset doesn't count as having read the whole file; if
+  you intend to edit it, read it in full first.
+
 ## Code changes
 
 - **Follow existing patterns; invent nothing.** Before writing any code, read a sibling
