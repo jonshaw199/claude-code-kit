@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>claude-kit-sync</title>
+<style>
+  body { font: 15px/1.5 system-ui, sans-serif; max-width: 640px; margin: 10vh auto; padding: 0 1rem; color: #222; }
+  h1 { font-size: 1.1rem; color: #666; font-weight: 600; }
+  .card { border: 1px solid #e3e3e3; border-radius: 10px; padding: 1.25rem 1.5rem; }
+  .headline { font-size: 1.5rem; font-weight: 700; margin: .2rem 0 .75rem; }
+  .ok { color: #137333; } .idle { color: #666; }
+  dt { color: #888; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; margin-top: .75rem; }
+  dd { margin: .15rem 0 0; word-break: break-word; }
+  .muted { color: #999; font-size: .8rem; margin-top: 1rem; }
+</style>
+<h1>claude-kit-sync</h1>
+<div class="card" id="card"><div class="headline idle">loading…</div></div>
+<p class="muted">Reads <code>status.json</code>. Refreshes every 30s.</p>
+<script>
+async function load() {
+  try {
+    const s = await (await fetch('status.json?' + Date.now())).json();
+    const cls = s.result === 'synced' ? 'ok' : 'idle';
+    document.getElementById('card').innerHTML = `
+      <div class="headline ${cls}">${s.headline || s.result || '—'}</div>
+      <dl>
+        <dt>Last run</dt><dd>${s.last_run || '—'}</dd>
+        <dt>Changed files</dt><dd>${s.changed_files || '—'}</dd>
+        <dt>Note</dt><dd>${s.note || '—'}</dd>
+      </dl>`;
+  } catch (e) {
+    document.getElementById('card').innerHTML = '<div class="headline idle">no status yet</div>';
+  }
+}
+load(); setInterval(load, 30000);
+</script>
