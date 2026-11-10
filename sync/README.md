@@ -1,43 +1,34 @@
 # sync
 
-A once-a-day job that promotes **new, generalizable learnings** from your local setup
-into this kit. A headless Claude agent makes the generic-vs-private and PII call —
-**org-specific content is never synced**. Runs via macOS `launchd` (no long-lived
-daemon), notifies you after each run, and writes a `status.json` you can glance at.
+Instructions for the daily job that promotes **new, generalizable learnings** from your
+local setup into this kit. A headless agent makes the generic-vs-private and PII call —
+**org-specific content is never synced**. This directory is just the prompt; the engine
+that schedules and runs it is [cron-claude](https://github.com/jonshaw199/cron-claude).
 
-## Setup
+- [`PROMPT.md`](PROMPT.md) — what the agent does each run (classify, scrub, commit, push).
 
-```bash
-mkdir -p ~/.config/claude-kit-sync
-cp sync/config.example.sh ~/.config/claude-kit-sync/config.sh
-$EDITOR ~/.config/claude-kit-sync/config.sh   # set KIT_REPO + SOURCE_DIRS
+## Running it
 
-sync/install.sh run        # DRY_RUN=1 sync/install.sh run  to preview first
-sync/install.sh install    # schedule it (daily)
+Define a [cron-claude](https://github.com/jonshaw199/cron-claude) job that points at this
+prompt, with the kit as the working dir and your source dirs as readable dirs:
+
+```sh
+# jobs/kit-sync.job.sh  (local, gitignored)
+JOB_NAME="kit-sync"
+PROMPT_FILE="/path/to/claude-code-kit/sync/PROMPT.md"
+WORKING_DIR="/path/to/claude-code-kit"
+ADD_DIRS=( "$HOME/.claude" )          # your live hooks/skills/rules, memory, etc.
+ALLOWED_TOOLS="Read Edit Write Grep Glob Bash"
+GIT_OUTCOME=1                          # report what actually got committed
 ```
 
-The config lives outside any repo and holds only machine paths — it is never committed.
-
-## Commands
-
-| Command | What it does |
-| --- | --- |
-| `sync/install.sh run` | Run one sync now (prefix `DRY_RUN=1` to preview with no commit). |
-| `sync/install.sh install` | Render the launchd job from your config and load it. |
-| `sync/install.sh uninstall` | Unload and remove it. |
-| `sync/install.sh status` | Print the last sync status. |
-| `sync/dashboard.sh` | Serve the one-page dashboard at `http://localhost:4320`. |
-
-## How it decides what synced
-
-The result is derived from the kit repo's git `HEAD` before and after the run (not from
-the agent's self-report): if `HEAD` moved, those files were promoted; if not, nothing was.
-The agent also leaves a one-line note (e.g. "skipped 1 private"). Both land in
-`status.json`.
+```bash
+DRY_RUN=1 cron-claude run kit-sync     # preview
+cron-claude install kit-sync           # schedule daily
+```
 
 ## Safety
 
-- The agent promotes only what it judges generic and non-identifying, and is told that
-  when unsure it must **leave a learning out** rather than risk a leak.
-- It never force-pushes, rewrites history, or opens/comments on PRs.
-- Keep your kit repo **private** as a backstop.
+The agent promotes only what it judges generic and non-identifying, and is told that
+when unsure it must leave a learning out rather than risk a leak. Keep the kit repo
+**private** as a backstop.

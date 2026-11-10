@@ -31,8 +31,8 @@ that has appeared or changed in a source dir since the kit last captured it.
 5. If there are clean changes: commit them in the kit repo (its existing git identity is
    already configured) with a short, plain message, and `git push`. If there is nothing
    new, or nothing you are confident is clean, make **no commit** and exit.
-6. As your final action, write a one-line outcome summary (e.g. "synced 2 stamps",
-   "nothing new", "skipped 1 private note") to the outcome file named in the context.
+6. End your reply with a one-line outcome summary (e.g. "synced 2 stamps", "nothing
+   new", "skipped 1 private note").
 
 ## Hard limits
 - Never push anything private, identifying, or that you are unsure about.

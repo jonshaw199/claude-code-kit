@@ -14,7 +14,7 @@ the kit is safe to share and carry between projects.
 | `skills/` | Reusable skills (e.g. Jira-ticket and decision-doc quality). |
 | `AGENTS.base.md` | Project-agnostic working principles to drop into a repo. |
 | `settings.example.json` | Wiring that activates the hooks. |
-| `sync/` | Optional once-a-day job that promotes new generalizable learnings into this kit. See [`sync/README.md`](sync/README.md). |
+| `sync/` | The prompt for a daily job that promotes new generalizable learnings into this kit (run via [cron-claude](https://github.com/jonshaw199/cron-claude)). See [`sync/README.md`](sync/README.md). |
 
 ## Design
 
