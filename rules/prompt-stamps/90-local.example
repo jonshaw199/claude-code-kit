@@ -1,0 +1,12 @@
+This is a TEMPLATE, not a live stamp — the loader globs *.md, so this .example file
+is never injected. To add org-specific or private rules that stay out of git:
+
+  1. Copy this file to a name ending in .local.md, e.g.  90-local.local.md
+  2. Put one rule per copy (or several), plain text — it is stamped verbatim.
+  3. *.local.md is gitignored, so your private rules never get committed.
+
+Example of an org-specific rule (do not commit something like this to the public repo):
+
+LOCAL DEV RULE (hard): to run or test locally, boot the stack with `<your command>`.
+NEVER propose localstack or multi-step per-process setups, and never push back when
+asked to test locally. Use what the repo's own docs already document.

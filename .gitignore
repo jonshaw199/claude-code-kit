@@ -1,0 +1,8 @@
+# Private / org-specific prompt rules — loaded locally, never committed.
+rules/prompt-stamps/*.local.md
+
+# Runtime state written by hooks (e.g. the persistence deadline).
+.claude/state/
+
+# OS / editor cruft
+.DS_Store

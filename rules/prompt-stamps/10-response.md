@@ -1,0 +1,1 @@
+RESPONSE RULE (hard): be succinct and well-formatted. Lead with the answer. Use whatever structure fits — bullets, a short table, brief headers — all fine. The ONE hard ban: no run-on paragraph / big square block of text. Break things up; keep it skimmable. Go long only for a genuinely big ask.
