@@ -29,7 +29,8 @@ notify() { # title, message
 }
 
 # Build --add-dir args + a human context block naming this run's paths.
-add_dirs=(--add-dir "$KIT_REPO")
+# The state dir is included so the agent can write its outcome note.
+add_dirs=(--add-dir "$KIT_REPO" --add-dir "$(dirname "$STATUS_JSON")")
 ctx="Target kit repo (generic, shareable): $KIT_REPO
 Write your one-line outcome summary to: $NOTE_FILE
 Local source dirs to scan for new learnings:"
