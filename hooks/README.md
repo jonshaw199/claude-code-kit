@@ -17,7 +17,8 @@ Hooks are activated in a `hooks` key in settings, not by the files existing. Add
     "PreToolUse":       [{ "matcher": "Bash|Edit|Write", "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-tool-use.sh" }] }],
     "PostToolUse":      [{ "matcher": "Edit|Write",       "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/post-tool-use.sh" }] }],
     "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/user-prompt-submit.sh" }] }],
-    "Stop":             [{ "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop.sh" }] }],
+    "Stop":             [{ "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop.sh" },
+                                     { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop-proof-check.sh" }] }],
     "SubagentStop":     [{ "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/subagent-stop.sh" }] }],
     "Notification":     [{ "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/notification.sh" }] }],
     "PreCompact":       [{ "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact.sh" }] }],
@@ -28,6 +29,8 @@ Hooks are activated in a `hooks` key in settings, not by the files existing. Add
 ```
 
 Only `PreToolUse` / `PostToolUse` use `matcher` (a regex on tool name; drop it to match all). The rest ignore it.
+
+Any event can run **multiple** hooks — above, `Stop` runs both `stop.sh` (brevity + persistence) and `stop-proof-check.sh` (blocks a correctness/completeness claim made with no investigation tool call that turn). They're separate files so neither touches the other's logic; list only the ones you want.
 
 ## Conventions
 

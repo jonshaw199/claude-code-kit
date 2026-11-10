@@ -11,6 +11,11 @@ but in longer form.
   or anything hard to reverse or outward-facing.
 - Reading a file with a line limit/offset doesn't count as having read the whole file; if
   you intend to edit it, read it in full first.
+- **Never go idle on a background task.** After kicking off async work (a backgrounded
+  command, a long build or probe), don't say "I'll continue when it finishes" and stop —
+  read its output and act on partial results, or re-run it synchronously with a bounded
+  timeout and keep driving. If something genuinely must run long, name the concrete next
+  check and when. A bare "waiting" reads as abandonment.
 
 ## Code changes
 
