@@ -54,6 +54,16 @@ cp -R claude-code-kit/skills/* ~/.claude/skills/   # optional
 Add your private rules as `rules/prompt-stamps/NN-*.local.md` (gitignored). See
 [`rules/prompt-stamps/README.md`](rules/prompt-stamps/README.md).
 
+## Secret guard
+
+A `.githooks/pre-commit` hook blocks any commit that introduces a likely secret or PII —
+the structural backstop for the automated [sync](sync/). Enable it per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## License
 
 Personal tooling, provided as-is.
+
