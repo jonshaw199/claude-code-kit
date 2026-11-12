@@ -17,6 +17,17 @@ but in longer form.
   timeout and keep driving. If something genuinely must run long, name the concrete next
   check and when. A bare "waiting" reads as abandonment.
 
+## Starting a change (ticket first)
+
+- **Define the ticket before you prescribe or build anything.** A new branch / worktree
+  starts with the ticket, not code. The ticket needs a solid, standalone *description*:
+  the problem, ample proof, and links to the supporting evidence (logs, data, traces, a
+  reproduction) — follow your ticket-quality skill. A prescribed *fix or implementation
+  plan* belongs in a **comment**, never the description.
+- **Open the PR in draft first, and link the ticket from it.** Every PR body references
+  its ticket. So the moment you spin up a worktree: the ticket (described) and a draft,
+  ticket-linked PR come first — before the first line of implementation.
+
 ## Code changes
 
 - **Follow existing patterns; invent nothing.** Before writing any code, read a sibling
